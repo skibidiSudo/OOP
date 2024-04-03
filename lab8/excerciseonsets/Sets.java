@@ -81,9 +81,24 @@ public class Sets {
     }
 
     public static Set<Character> allRecurringChars(String s) {
-        Set<Character> opSet = new TreeSet<>();
-        opSet.add(s.charAt(0));
-        opSet.add(s.charAt(s.length() - 1));
+        Set<Character> opSet = new HashSet<>();
+        int[] cnt = new int[26];
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (Character.isLetter(c)) {
+                int code = Character.toLowerCase(c) - 'a';
+                cnt[code]++;
+            }
+        }
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (Character.isLetter(c) && cnt[Character.toLowerCase(c) - 'a'] > 1) {
+                opSet.add(c);
+            }
+        }
+
         return opSet;
     }
 

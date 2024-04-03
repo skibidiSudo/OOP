@@ -32,7 +32,7 @@ public class TestSets {
         System.out.println("Remove Duplicates Manual: " + Sets.removeDuplicatesManual(listWithDuplicates));
 
         // Test firstRecurringCharacter
-        String s = "Hello";
+        String s = "Hellohehe";
         System.out.println("First Recurring Character: " + Sets.firstRecurringCharacter(s));
 
         // Test allRecurringChars
