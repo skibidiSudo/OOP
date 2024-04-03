@@ -1,5 +1,7 @@
 package hus.oop.lab8.countrymanager.countryarraymanager;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class CountryArrayManager {
@@ -241,62 +243,146 @@ public class CountryArrayManager {
     }
 
     public AfricaCountry[] filterAfricaCountry() {
-        return null;
-        /* TODO */
+        Country[] newArray = new Country[this.length];
+        System.arraycopy(this.countries, 0, newArray, 0, this.length);
+        List<AfricaCountry> africaCountry = new ArrayList<>();
+        for (Country country : newArray) {
+            if (country instanceof AfricaCountry) {
+                africaCountry.add((AfricaCountry) country);
+            }
+        }
+        AfricaCountry[] result = new AfricaCountry[africaCountry.size()];
+        return africaCountry.toArray(result);
     }
 
     public AsiaCountry[] filterAsiaCountry() {
-        return null;
+        Country[] newArray = new Country[this.length];
+        System.arraycopy(this.countries, 0, newArray, 0, this.length);
+        List<AsiaCountry> asiaCountry = new ArrayList<>();
+        for (Country country : newArray) {
+            if (country instanceof AsiaCountry) {
+                asiaCountry.add((AsiaCountry) country);
+            }
+        }
+        AsiaCountry[] result = new AsiaCountry[asiaCountry.size()];
+        return asiaCountry.toArray(result);
         /* TODO */
     }
 
     public EuropeCountry[] filterEuropeCountry() {
-        return null;
+        Country[] newArray = new Country[this.length];
+        System.arraycopy(this.countries, 0, newArray, 0, this.length);
+        List<EuropeCountry> europeCountry = new ArrayList<>();
+        for (Country country : newArray) {
+            if (country instanceof EuropeCountry) {
+                europeCountry.add((EuropeCountry) country);
+            }
+        }
+        EuropeCountry[] result = new EuropeCountry[europeCountry.size()];
+        return europeCountry.toArray(result);
         /* TODO */
     }
 
     public NorthAmericaCountry[] filterNorthAmericaCountry() {
-        return null;
+        Country[] newArray = new Country[this.length];
+        System.arraycopy(this.countries, 0, newArray, 0, this.length);
+        List<NorthAmericaCountry> northAmericaCountry = new ArrayList<>();
+        for (Country country : newArray) {
+            if (country instanceof NorthAmericaCountry) {
+                northAmericaCountry.add((NorthAmericaCountry) country);
+            }
+        }
+        NorthAmericaCountry[] result = new NorthAmericaCountry[northAmericaCountry.size()];
+        return northAmericaCountry.toArray(result);
         /* TODO */
     }
 
     public OceaniaCountry[] filterOceaniaCountry() {
-        return null;
+        Country[] newArray = new Country[this.length];
+        System.arraycopy(this.countries, 0, newArray, 0, this.length);
+        List<OceaniaCountry> oceaniaCountry = new ArrayList<>();
+        for (Country country : newArray) {
+            if (country instanceof OceaniaCountry) {
+                oceaniaCountry.add((OceaniaCountry) country);
+            }
+        }
+        OceaniaCountry[] result = new OceaniaCountry[oceaniaCountry.size()];
+        return oceaniaCountry.toArray(result);
         /* TODO */
     }
 
     public SouthAmericaCountry[] filterSouthAmericaCountry() {
-        return null;
+        Country[] newArray = new Country[this.length];
+        System.arraycopy(this.countries, 0, newArray, 0, this.length);
+        List<SouthAmericaCountry> southAmericaCountry = new ArrayList<>();
+        for (Country country : newArray) {
+            if (country instanceof SouthAmericaCountry) {
+                southAmericaCountry.add((SouthAmericaCountry) country);
+            }
+        }
+        SouthAmericaCountry[] result = new SouthAmericaCountry[southAmericaCountry.size()];
+        return southAmericaCountry.toArray(result);
         /* TODO */
     }
 
     public Country[] filterMostPopulousCountries(int howMany) {
-        return null;
+        Country[] newArray = sortByDecreasingPopulation();
+        Country[] mostPopulationCountries = new Country[howMany];
+        for (int i = 0; i < howMany; i++) {
+            mostPopulationCountries[i] = newArray[i];
+        }
+        return
+                mostPopulationCountries;
         /* TODO */
     }
 
     public Country[] filterLeastPopulousCountries(int howMany) {
-        return null;
+        Country[] newArray = sortByIncreasingPopulation();
+        Country[] leastPopulationCountries = new Country[howMany];
+        for (int i = 0; i < howMany; i++) {
+            leastPopulationCountries[i] = newArray[i];
+        }
+        return leastPopulationCountries;
         /* TODO */
     }
 
     public Country[] filterLargestAreaCountries(int howMany) {
-        return null;
+        Country[] newArray = sortByDecreasingArea();
+        Country[] largestAreaCountries = new Country[howMany];
+        for (int i = 0; i < howMany; i++) {
+            largestAreaCountries[i] = newArray[i];
+        }
+        return largestAreaCountries;
         /* TODO */
     }
 
     public Country[] filterSmallestAreaCountries(int howMany) {
-        return null;
+        Country[] newArray = sortByIncreasingArea();
+        Country[] largestAreaCountries = new Country[howMany];
+        for (int i = 0; i < howMany; i++) {
+            largestAreaCountries[i] = newArray[i];
+        }
+        return largestAreaCountries;
         /* TODO */
     }
 
     public Country[] filterHighestGdpCountries(int howMany) {
-        return null;
+        Country[] newArray = sortByDecreasingGdp();
+        Country[] highestGdpCountries = new Country[howMany];
+        for (int i = 0; i < howMany; i++) {
+            highestGdpCountries[i] = newArray[i];
+        }
+        return highestGdpCountries;
         /* TODO */
     }
 
     public Country[] filterLowestGdpCountries(int howMany) {
-        return null;
+        Country[] newArray = sortByIncreasingGdp();
+        Country[] highestGdpCountries = new Country[howMany];
+        for (int i = 0; i < howMany; i++) {
+            highestGdpCountries[i] = newArray[i];
+        }
+        return highestGdpCountries;
         /* TODO */
     }
 
@@ -313,6 +399,30 @@ public class CountryArrayManager {
 
         return codeOfCountries.toString().trim() + "]";
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("[");
+        for (int i = 0; i < length; i++) {
+            if (countries[i] != null) {
+                result.append(countries[i].getName())
+                        .append(", Population: ")
+                        .append(countries[i].getPopulation())
+                        .append(", Area: ")
+                        .append(countries[i].getArea())
+                        .append(", GDP: ")
+                        .append(countries[i].getGdp())
+                        .append("\n");
+            }
+        }
+        if (result.length() > 1) {
+            result.deleteCharAt(result.length() - 1);
+        }
+        result.append("]");
+        return result.toString();
+    }
+
 
     public static void print(Country[] countries) {
         StringBuilder countriesString = new StringBuilder();
