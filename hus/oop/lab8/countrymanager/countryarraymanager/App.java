@@ -12,7 +12,26 @@ public class App {
 
     public static void main(String[] args) {
         init();
+        System.out.println("Original data:");
+        testOriginalData();
 
+        System.out.println("\nCountries sorted by increasing population:");
+        testSortIncreasingByPopulation();
+
+        System.out.println("\nCountries sorted by decreasing population:");
+        testSortDecreasingByPopulation();
+
+        System.out.println("\nCountries sorted by increasing area:");
+        testSortIncreasingByArea();
+
+        System.out.println("\nCountries sorted by decreasing area:");
+        testSortDecreasingByArea();
+
+        System.out.println("\nCountries sorted by increasing GDP:");
+        testSortIncreasingByGdp();
+
+        System.out.println("\nCountries sorted by decreasing GDP:");
+        testSortDecreasingByGdp();
         /* TODO: write code to test program */
     }
 
@@ -33,7 +52,34 @@ public class App {
                 if (dataList.size() != 6) {
                     continue;
                 }
-
+                String code = dataList.get(0);
+                String name = dataList.get(1);
+                int population = Integer.parseInt(dataList.get(2));
+                double surfaceArea = Double.parseDouble(dataList.get(3));
+                double gdp = Double.parseDouble(dataList.get(4));
+                String continent = dataList.get(5);
+                Country country;
+                switch (continent){
+                    case "Oceania":
+                        country = new OceaniaCountry(code, name, population, surfaceArea, gdp);
+                        break;
+                    case "Asia":
+                        country = new AsiaCountry(code, name, population, surfaceArea, gdp);
+                        break;
+                    case "Europe":
+                        country = new EuropeCountry(code, name, population, surfaceArea, gdp);
+                        break;
+                    case "North America":
+                        country = new NorthAmericaCountry(code, name, population, surfaceArea, gdp);
+                        break;
+                    case "South America":
+                        country = new SouthAmericaCountry(code, name, population, surfaceArea, gdp);
+                        break;
+                    default:
+                        country = new AfricaCountry(code, name, population, surfaceArea, gdp);
+                        break;
+                }
+                countryManager.append(country);
                 /*
                 * TODO: create Country and append countries into 
                 * CountryArrayManager here.
@@ -73,7 +119,7 @@ public class App {
     }
 
     public static void init() {
-        String filePath = "data/countries.csv";
+        String filePath = "D:\\IJ\\OOP\\HK2\\hus\\oop\\lab8\\countrymanager\\data\\countries.csv";
         readListData(filePath);
     }
 
@@ -84,29 +130,46 @@ public class App {
 
     public static void testSortIncreasingByPopulation() {
         Country[] countries = countryManager.sortByIncreasingPopulation();
-        String codesString = CountryArrayManager.codeOfCountriesToString(countries);
-        System.out.print(codesString);
+        for (Country country : countries) {
+            System.out.println(country.getName() + " - Population: " + country.getPopulation());
+        }
     }
 
     public static void testSortDecreasingByPopulation() {
-        /* TODO */
+        Country[] countries = countryManager.sortByDecreasingPopulation();
+        for (Country country : countries) {
+            System.out.println(country.getName() + " - Population: " + country.getPopulation());
+        }
     }
 
     public static void testSortIncreasingByArea() {
-        /* TODO */
+        Country[] countries = countryManager.sortByIncreasingArea();
+        for (Country country : countries) {
+            System.out.println(country.getName() + " - Area: " + country.getArea());
+        }
     }
 
     public static void testSortDecreasingByArea() {
-        /* TODO */
+        Country[] countries = countryManager.sortByDecreasingArea();
+        for (Country country : countries) {
+            System.out.println(country.getName() + " - Area: " + country.getArea());
+        }
     }
 
     public static void testSortIncreasingByGdp() {
-        /* TODO */
+        Country[] countries = countryManager.sortByIncreasingGdp();
+        for (Country country : countries) {
+            System.out.println(country.getName() + " - GDP: " + country.getGdp());
+        }
     }
 
     public static void testSortDecreasingByGdp() {
-        /* TODO */
+        Country[] countries = countryManager.sortByDecreasingGdp();
+        for (Country country : countries) {
+            System.out.println(country.getName() + " - GDP: " + country.getGdp());
+        }
     }
+
 
     public static void testFilterAfricaCountry() {
         /* TODO */
