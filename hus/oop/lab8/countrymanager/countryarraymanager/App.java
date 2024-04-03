@@ -5,34 +5,98 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class App {
     private static final String COMMA_DELIMITER = ",";
     private static final CountryArrayManager countryManager = new CountryArrayManager();
+    static Scanner sc = new Scanner(System.in);
+    private static int howMany;
 
     public static void main(String[] args) {
         init();
+        insertInformation();
+
         System.out.println("Original data:");
         testOriginalData();
+        System.out.println();
 
         System.out.println("\nCountries sorted by increasing population:");
         testSortIncreasingByPopulation();
+        System.out.println();
 
         System.out.println("\nCountries sorted by decreasing population:");
         testSortDecreasingByPopulation();
+        System.out.println();
 
         System.out.println("\nCountries sorted by increasing area:");
         testSortIncreasingByArea();
+        System.out.println();
 
         System.out.println("\nCountries sorted by decreasing area:");
         testSortDecreasingByArea();
+        System.out.println();
 
         System.out.println("\nCountries sorted by increasing GDP:");
         testSortIncreasingByGdp();
+        System.out.println();
 
         System.out.println("\nCountries sorted by decreasing GDP:");
         testSortDecreasingByGdp();
+        System.out.println();
+
+        System.out.println("\nFilter Africa countries:");
+        testFilterAfricaCountry();
+        System.out.println();
+
+        System.out.println("\nFilter Asia countries:");
+        testFilterAsiaCountry();
+        System.out.println();
+
+        System.out.println("\nFilter Europe countries:");
+        testFilterEuropeCountry();
+        System.out.println();
+
+        System.out.println("\nFilter North America countries:");
+        testFilterNorthAmericaCountry();
+        System.out.println();
+
+        System.out.println("\nFilter Oceania countries:");
+        testFilterOceaniaCountry();
+        System.out.println();
+
+        System.out.println("\nFilter South America countries:");
+        testFilterSouthAmericaCountry();
+        System.out.println();
+
+        System.out.println("\nFilter most populous countries:");
+        testFilterMostPopulousCountries();
+        System.out.println();
+
+        System.out.println("\nFilter least populous countries:");
+        testFilterLeastPopulousCountries();
+        System.out.println();
+
+        System.out.println("\nFilter largest area countries:");
+        testFilterLargestAreaCountries();
+        System.out.println();
+
+        System.out.println("\nFilter smallest area countries:");
+        testFilterSmallestAreaCountries();
+        System.out.println();
+
+        System.out.println("\nFilter highest GDP countries:");
+        testFilterHighestGdpCountries();
+        System.out.println();
+
+        System.out.println("\nFilter lowest GDP countries:");
+        testFilterLowestGdpCountries();
         /* TODO: write code to test program */
+    }
+
+    public static void insertInformation() {
+        System.out.print("Enter number of countries to filter: ");
+        howMany = sc.nextInt();
     }
 
     public static void readListData(String filePath) {
@@ -59,7 +123,7 @@ public class App {
                 double gdp = Double.parseDouble(dataList.get(4));
                 String continent = dataList.get(5);
                 Country country;
-                switch (continent){
+                switch (continent) {
                     case "Oceania":
                         country = new OceaniaCountry(code, name, population, surfaceArea, gdp);
                         break;
@@ -81,9 +145,9 @@ public class App {
                 }
                 countryManager.append(country);
                 /*
-                * TODO: create Country and append countries into 
-                * CountryArrayManager here.
-                */
+                 * TODO: create Country and append countries into
+                 * CountryArrayManager here.
+                 */
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -106,7 +170,7 @@ public class App {
                 result.add(splitData[i]);
             }
         }
-        
+
         return result;
     }
 
@@ -130,92 +194,94 @@ public class App {
 
     public static void testSortIncreasingByPopulation() {
         Country[] countries = countryManager.sortByIncreasingPopulation();
-        for (Country country : countries) {
-            System.out.println(country.getName() + " - Population: " + country.getPopulation());
-        }
+        countryManager.print(countries);
     }
 
     public static void testSortDecreasingByPopulation() {
         Country[] countries = countryManager.sortByDecreasingPopulation();
-        for (Country country : countries) {
-            System.out.println(country.getName() + " - Population: " + country.getPopulation());
-        }
+        countryManager.print(countries);
     }
 
     public static void testSortIncreasingByArea() {
         Country[] countries = countryManager.sortByIncreasingArea();
-        for (Country country : countries) {
-            System.out.println(country.getName() + " - Area: " + country.getArea());
-        }
+        countryManager.print(countries);
     }
 
     public static void testSortDecreasingByArea() {
         Country[] countries = countryManager.sortByDecreasingArea();
-        for (Country country : countries) {
-            System.out.println(country.getName() + " - Area: " + country.getArea());
-        }
+        countryManager.print(countries);
     }
 
     public static void testSortIncreasingByGdp() {
         Country[] countries = countryManager.sortByIncreasingGdp();
-        for (Country country : countries) {
-            System.out.println(country.getName() + " - GDP: " + country.getGdp());
-        }
+        countryManager.print(countries);
     }
 
     public static void testSortDecreasingByGdp() {
         Country[] countries = countryManager.sortByDecreasingGdp();
-        for (Country country : countries) {
-            System.out.println(country.getName() + " - GDP: " + country.getGdp());
-        }
+        countryManager.print(countries);
     }
 
 
     public static void testFilterAfricaCountry() {
-        /* TODO */
+        AfricaCountry[] africaCountries = countryManager.filterAfricaCountry();
+        countryManager.print(africaCountries);
     }
 
     public static void testFilterAsiaCountry() {
-        /* TODO */
+        AsiaCountry[] asiaCountries = countryManager.filterAsiaCountry();
+        countryManager.print(asiaCountries);
     }
 
     public static void testFilterEuropeCountry() {
-        /* TODO */
+        EuropeCountry[] europeCountries = countryManager.filterEuropeCountry();
+        countryManager.print(europeCountries);
     }
 
     public static void testFilterNorthAmericaCountry() {
-        /* TODO */
+        NorthAmericaCountry[] northAmericaCountries = countryManager.filterNorthAmericaCountry();
+        countryManager.print(northAmericaCountries);
     }
 
     public static void testFilterOceaniaCountry() {
-        /* TODO */
+        OceaniaCountry[] oceaniaCountries = countryManager.filterOceaniaCountry();
+        countryManager.print(oceaniaCountries);
     }
 
     public static void testFilterSouthAmericaCountry() {
-        /* TODO */
+        SouthAmericaCountry[] southAmericaCountries = countryManager.filterSouthAmericaCountry();
+        countryManager.print(southAmericaCountries);
     }
 
     public static void testFilterMostPopulousCountries() {
-        /* TODO */
+        Country[] countries = countryManager.filterMostPopulousCountries(howMany);
+        countryManager.print(countries);
     }
 
     public static void testFilterLeastPopulousCountries() {
-        /* TODO */
+        Country[] countries = countryManager.filterLeastPopulousCountries(howMany);
+        countryManager.print(countries);
     }
 
     public static void testFilterLargestAreaCountries() {
-        /* TODO */
+        Country[] countries = countryManager.filterLargestAreaCountries(howMany);
+        countryManager.print(countries);
     }
 
     public static void testFilterSmallestAreaCountries() {
-        /* TODO */
+        Country[] countries = countryManager.filterSmallestAreaCountries(howMany);
+        countryManager.print(countries);
     }
 
     public static void testFilterHighestGdpCountries() {
-        /* TODO */
+        Country[] countries = countryManager.filterHighestGdpCountries(howMany);
+        countryManager.print(countries);
     }
 
     public static void testFilterLowestGdpCountries() {
-        /* TODO */
+        Country[] countries = countryManager.filterLowestGdpCountries(howMany);
+        countryManager.print(countries);
     }
+
+
 }
