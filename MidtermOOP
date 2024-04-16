@@ -1,1 +1,104 @@
+package bai1;
+
+import java.io.File;
+import java.math.BigInteger;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+
+public class MyMath {
+    static final double EPS = 1e-9;
+
+    public static void main(String[] args) {
+        try {
+            File opFile = new File("D:\\IJ\\OOP\\BAI1_2021");
+            FileWriter fileWriter = new FileWriter(opFile);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+
+            printWriter.println(exp(2.2) * cos(3.3));
+            printWriter.println(Math.exp(2.2) * Math.cos(3.3));
+            printWriter.println(toRadix("123456789123456789", 13, 8));
+
+            String number = "123456789123456789"; // Số cần chuyển đổi
+            int inRadix = 13; // Hệ cơ số ban đầu
+            int outRadix = 8; // Hệ cơ số mới
+            // Chuyển đổi từ hệ cơ số ban đầu sang hệ cơ số 10
+            BigInteger decimalNumber = new BigInteger(number, inRadix);
+            // Chuyển đổi từ hệ cơ số 10 sang hệ cơ số mới
+            String result = decimalNumber.toString(outRadix);
+            printWriter.println("Kết quả chuyển đổi: " + result);
+            printWriter.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+    }
+
+    public static double cos(double x) {
+        if (Math.abs(x) > Math.PI * 2) {
+            x = x % (2 * Math.PI);
+        }
+        double cosX = 1;
+        double nextElement = 1;
+        int dau = -1;
+        for (int i = 2; Math.abs(nextElement) > EPS; i += 2) {
+            nextElement *= (x * x) / ((i - 1) * i);
+            cosX += dau * nextElement;
+            dau *= -1;
+        }
+        return cosX;
+    }
+
+    public static double exp(double x) {
+        boolean check = false;
+        if (x < 0) {
+            check = true;
+        }
+        double expX = 1;
+        double nextElement = 1;
+        for (int i = 1; Math.abs(nextElement) > EPS; i++) {
+            nextElement *= Math.abs(x) / i;
+            expX += nextElement;
+        }
+        return check ? (1 / expX) : expX;
+    }
+
+    public static String decimalTo(String number, int outRadix) {
+        String outpStr = "";
+        BigInteger decimal = new BigInteger(number);
+        BigInteger radix = BigInteger.valueOf(outRadix);
+        while (!decimal.equals(BigInteger.ZERO)) {
+            BigInteger[] divMod = decimal.divideAndRemainder(radix);
+            BigInteger surplus = divMod[1];
+            decimal = divMod[0];
+            outpStr = surplus + outpStr;
+        }
+        return outpStr;
+    }
+
+    public static String toDecimal(String number, int inRadix) {
+        BigInteger outNum = BigInteger.ZERO;
+        BigInteger radix = BigInteger.valueOf(inRadix);
+        for (int i = 0; i < number.length(); i++) {
+            char digit = number.charAt(i);
+            int value;
+            if (Character.isDigit(digit)) {
+                value = digit - '0'; // Nếu là chữ số, chuyển đổi thành giá trị số
+            } else {
+                value = digit - 'A' + 10; // Nếu là chữ cái, chuyển đổi thành giá trị số tương ứng với A=10, B=11, ..., Z=35
+            }
+            outNum = outNum.multiply(radix).add(BigInteger.valueOf(value));
+        }
+        return outNum.toString();
+    }
+
+    public static String toRadix(String number, int inRadix, int outRadix) {
+        String outNum = "";
+        String decimal = toDecimal(number, inRadix);
+        outNum = decimalTo(decimal, outRadix);
+        return outNum;
+    }
+
+}
 
