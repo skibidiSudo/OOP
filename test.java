@@ -1,24 +1,26 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class test {
-    static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-        testBoxPattern();
+        int[] a = {-1, -8, 0, 5, -9};
+        System.out.println(maxSatisfaction(a));
+        String s = "123";
+        int x = Integer.parseInt(s);
+        int b = 123;
+        String s2 = String.valueOf(b);
     }
-    public static void boxPatternA(int size){
-        for (int row = 1; row <= size; row++) {
-            for (int col = 1; col <= row; col++) {
-                if (row == 1 || row == size || col == 1 || col == size)
-                    System.out.print("# ");
-                else
-                    System.out.print(" ");
+
+    public static int maxSatisfaction(int[] satisfaction) {
+        Arrays.sort(satisfaction);
+        int ans = 0;
+        for (int i = 0; i < satisfaction.length; i++){
+            int sum = 0, pro = 1;
+            for (int j = i; j < satisfaction.length; j++){
+                sum += satisfaction[j] * (pro);
+                pro++;
             }
-            System.out.println();
+            ans = Math.max(ans, sum);
         }
-    }
-    public static void testBoxPattern(){
-        System.out.print("Enter the size: ");
-        int size = sc.nextInt();
-        boxPatternA(size);
+        return ans;
     }
 }
